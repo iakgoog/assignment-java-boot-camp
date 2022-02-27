@@ -1,5 +1,6 @@
 package com.iakgoog.week1.controller;
 
+import com.iakgoog.week1.common.ApiResponse;
 import com.iakgoog.week1.entity.Order;
 import com.iakgoog.week1.exception.OrderNotFoundException;
 import com.iakgoog.week1.service.OrderService;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -28,5 +30,11 @@ public class OrderController {
         int parsedId = Integer.parseInt(id);
         Order order = orderService.getOrderById(parsedId);
         return new ResponseEntity<Order>(order, HttpStatus.OK);
+    }
+
+    @PostMapping("/orders")
+    public ResponseEntity<ApiResponse> placeOrder() {
+        orderService.placeOrder();
+        return new ResponseEntity<ApiResponse>(new ApiResponse(true, "Order has been placed"), HttpStatus.CREATED);
     }
 }
