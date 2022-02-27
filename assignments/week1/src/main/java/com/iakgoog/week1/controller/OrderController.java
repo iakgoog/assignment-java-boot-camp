@@ -37,4 +37,11 @@ public class OrderController {
         orderService.placeOrder();
         return new ResponseEntity<ApiResponse>(new ApiResponse(true, "Order has been placed"), HttpStatus.CREATED);
     }
+
+    @PostMapping("/orders/{id}/pay")
+    public ResponseEntity<ApiResponse> performPayment(@PathVariable String id) {
+        int parsedId = Integer.parseInt(id);
+        orderService.performPayment(parsedId);
+        return new ResponseEntity<ApiResponse>(new ApiResponse(true, "Order has been paid successfully"), HttpStatus.OK);
+    }
 }

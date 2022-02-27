@@ -61,4 +61,11 @@ public class OrderService {
 
         cartService.deleteCartItems();
     }
+
+    public void performPayment(Integer id) throws OrderNotFoundException {
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new OrderNotFoundException(String.valueOf(id)));
+        // perform interaction with payment gateway
+        order.setPaymentStatus(PaymentStatus.PAID.label);
+    }
 }
