@@ -1,6 +1,7 @@
 package com.iakgoog.week1.service;
 
 import com.iakgoog.week1.entity.Product;
+import com.iakgoog.week1.exception.ProductNotFoundException;
 import com.iakgoog.week1.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,5 +20,11 @@ public class ProductService {
 
     public List<Product> findByProductName(String name) {
         return productRepository.findByProductName(name);
+    }
+
+    public Product getProductById(Integer id) throws ProductNotFoundException {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException(String.valueOf(id)));
+        return product;
     }
 }
