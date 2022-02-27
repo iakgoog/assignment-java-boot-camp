@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ProductController {
@@ -17,7 +19,10 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getProductWithOptionalParam() {
+    public ResponseEntity<List<Product>> getProductWithOptionalParam(@RequestParam Optional<String> query) {
+        if (query.isPresent()) {
+            return new ResponseEntity<List<Product>>(productService.findByProductName(query.get()), HttpStatus.OK);
+        }
         return new ResponseEntity<List<Product>>(productService.getAllProducts(), HttpStatus.OK);
     }
 }
