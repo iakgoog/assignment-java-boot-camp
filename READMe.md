@@ -9,6 +9,14 @@
 * https://start.spring.io/
 * [Git commit message](https://www.conventionalcommits.org/en/v1.0.0/)
 
+## วิธี run
+```
+$ mvnw clean
+$ mvnw compile
+$ mvnw package
+$ mvnw spring-boot:run
+```
+
 ## Entity Relationship Diagram
 
 ![BRD](./image/ERD.png)
