@@ -2,7 +2,7 @@ package com.iakgoog.week1.controller;
 
 import com.iakgoog.week1.common.ApiResponse;
 import com.iakgoog.week1.dto.AddToCartDto;
-import com.iakgoog.week1.entity.Cart;
+import com.iakgoog.week1.dto.CartDto;
 import com.iakgoog.week1.entity.Product;
 import com.iakgoog.week1.exception.ProductNotFoundException;
 import com.iakgoog.week1.service.CartService;
@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 public class CartController {
 
@@ -27,8 +25,9 @@ public class CartController {
     private ProductService productService;
 
     @GetMapping("/carts")
-    public ResponseEntity<List<Cart>> getCartItems() {
-        return new ResponseEntity<List<Cart>>(cartService.getAllCarts(), HttpStatus.OK);
+    public ResponseEntity<CartDto> getCartItems() {
+        CartDto cartDto = cartService.listCartItems();
+        return new ResponseEntity<CartDto>(cartDto, HttpStatus.OK);
     }
 
     @PostMapping("/carts")
